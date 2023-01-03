@@ -2,13 +2,10 @@ package com.example;
 
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.datatransfer.*;
-import java.io.*;
 
 /**
- * Hello world!
- *
+ * GUI and Unicode generator
  */
 public class MainFrame extends JFrame
 {
@@ -53,10 +50,14 @@ public class MainFrame extends JFrame
         print.setAccelerator(KeyStroke.getKeyStroke("control P"));
         options.add(print);
 
+        JMenuItem clear = new JMenuItem("Clear Blackboard");
+        clear.addActionListener(e -> pixel.clearGrid());
+        options.add(clear);
+
         JMenu colorMenu = new JMenu("Colors");
         for (int i = 0; i < colors.length; i++) {
             JMenuItem colorItem = new JMenuItem(Integer.toString(i));
-            // Illegal code
+            // Very illegal code, do not try at home
             colorItem.addActionListener(e -> pixel.setBrush(Integer.parseInt(colorItem.getText())));
             colorItem.setBackground(colors[i]);
             colorMenu.add(colorItem);
@@ -86,10 +87,12 @@ public class MainFrame extends JFrame
 
         for (int i = 0; i < pixel.grid.length - 3; i += 4) {
             int code = (pixel.grid[i + 3] << 12) | (pixel.grid[i + 2] << 8) | (pixel.grid[i + 1] << 4) | (pixel.grid[i]);
+            if (code == 0) {
+                code = 0x7000;
+            }
             finalString += new String(Character.toChars(code));
             System.out.print("u+" + Integer.toHexString(code)+ " ");
         }
-        System.out.println(finalString);
 
         Clipboard c = Toolkit.getDefaultToolkit().getSystemClipboard();
         StringSelection testData;
