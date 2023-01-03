@@ -14,6 +14,8 @@ public class GridPixel extends JPanel implements MouseListener, MouseMotionListe
     int xSel = -1;
     int ySel = -1;
 
+    int brushColor = 1;
+
     public int[] grid;
     boolean mouseDown = false;
 
@@ -62,13 +64,17 @@ public class GridPixel extends JPanel implements MouseListener, MouseMotionListe
                     do {
                         Point sel = getSelected();
                         if (inGrid(sel.x, sel.y)) {
-                            grid[sel.y + sel.x * 16] = 1;
+                            grid[sel.y + sel.x * 16] = brushColor;
                         }
                     } while (mouseDown);
                     isRunning = false;
                 }
             }.start();
         }
+    }
+
+    public void setBrush(int c) {
+        brushColor = c;
     }
 
     boolean inGrid(int x, int y) {

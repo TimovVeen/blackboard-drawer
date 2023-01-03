@@ -22,7 +22,7 @@ public class MainFrame extends JFrame
         colors[2] = new Color(0xc64fbd);
         colors[3] = new Color(0x3ab3da);
         colors[4] = new Color(0xffd83d);
-        colors[5] = new Color(0xffd83d);
+        colors[5] = new Color(0x80c71f);
         colors[6] = new Color(0xf38caa);
         colors[7] = new Color(0x474f52);
         colors[8] = new Color(0x9c9d97);
@@ -52,8 +52,19 @@ public class MainFrame extends JFrame
         print.addActionListener(e -> printText());
         print.setAccelerator(KeyStroke.getKeyStroke("control P"));
         options.add(print);
-        bar.add(options);
 
+        JMenu colorMenu = new JMenu("Colors");
+        for (int i = 0; i < colors.length; i++) {
+            JMenuItem colorItem = new JMenuItem(Integer.toString(i));
+            // Illegal code
+            colorItem.addActionListener(e -> pixel.setBrush(Integer.parseInt(colorItem.getText())));
+            colorItem.setBackground(colors[i]);
+            colorMenu.add(colorItem);
+        }
+        
+
+        bar.add(options);
+        bar.add(colorMenu);
         setJMenuBar(bar);
         //add(settings);
 
