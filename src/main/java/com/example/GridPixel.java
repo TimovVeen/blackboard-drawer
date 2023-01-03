@@ -28,7 +28,7 @@ public class GridPixel extends JPanel implements MouseListener, MouseMotionListe
 
         grid = new int[256];
         for (int i=0; i < grid.length; i++) {
-            grid[i] = 0;
+            grid[i] = 9;
         }
 
         setBounds(x, y, SIZE * 16, SIZE * 16);

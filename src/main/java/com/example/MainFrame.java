@@ -71,18 +71,19 @@ public class MainFrame extends JFrame
 
     private void printText() {
         
-        String fullString = "";
-        
+        String finalString = new String();
+
         for (int i = 0; i < pixel.grid.length - 3; i += 4) {
-            int code = (pixel.grid[i] << 12) | (pixel.grid[i + 1] << 8) | (pixel.grid[i + 2] << 4) | (pixel.grid[i + 3]);
-            fullString += new String(Character.toChars(code));
+            int code = (pixel.grid[i + 3] << 12) | (pixel.grid[i + 2] << 8) | (pixel.grid[i + 1] << 4) | (pixel.grid[i]);
+            finalString += new String(Character.toChars(code));
+            System.out.print("u+" + Integer.toHexString(code)+ " ");
         }
-        System.out.println(fullString.length());
+        System.out.println(finalString);
 
         Clipboard c = Toolkit.getDefaultToolkit().getSystemClipboard();
         StringSelection testData;
 
-        testData = new StringSelection(fullString);
+        testData = new StringSelection(finalString);
 
         c.setContents(testData, testData);
     }
